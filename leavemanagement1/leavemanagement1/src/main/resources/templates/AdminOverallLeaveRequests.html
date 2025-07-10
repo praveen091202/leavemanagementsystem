@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Admin - Overall Leave Requests</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            overflow-x: hidden;
+            background: linear-gradient(270deg, #ff6ec4, #7873f5, #4ade80, #ffd93d, #00c9ff, #ff8c00);
+            background-size: 1200% 1200%;
+            animation: rainbow 25s ease infinite;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 60px;
+            font-family: 'Segoe UI', sans-serif;
+            position: relative;
+        }
+
+        @keyframes rainbow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 5s infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+
+        .star:nth-child(1) { top: 10%; left: 10%; }
+        .star:nth-child(2) { top: 20%; left: 80%; }
+        .star:nth-child(3) { top: 50%; left: 50%; }
+        .star:nth-child(4) { top: 70%; left: 25%; }
+        .star:nth-child(5) { top: 85%; left: 90%; }
+
+        h2 {
+            font-weight: bold;
+            color: #fff;
+            text-shadow: 1px 1px 4px #000;
+        }
+
+        .btn {
+            margin: 5px;
+            border-radius: 10px;
+            font-weight: bold;
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.15);
+            color: white !important;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: scale(1.05);
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
+        }
+
+        .table {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+
+        .table th, .table td {
+            background-color: rgba(255, 255, 255, 0.05);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .table-light {
+            background-color: rgba(255, 255, 255, 0.2) !important;
+            color: #fff;
+        }
+    </style>
+    <script>
+        function filterByStatus(status) {
+            const rows = document.querySelectorAll("#leaveTable tbody tr");
+            rows.forEach(row => {
+                const rowStatus = row.getAttribute("data-status");
+                row.style.display = (status === 'all' || rowStatus === status) ? 'table-row' : 'none';
+            });
+        }
+    </script>
+</head>
+<body>
+
+<!-- Star decorations -->
+<div class="star"></div>
+<div class="star"></div>
+<div class="star"></div>
+<div class="star"></div>
+<div class="star"></div>
+
+<h2 class="mb-4">All Leave Requests</h2>
+
+<div class="mb-3">
+    <button onclick="filterByStatus('all')" class="btn btn-dark">All</button>
+    <button onclick="filterByStatus('Pending')" class="btn btn-warning">Pending</button>
+    <button onclick="filterByStatus('Accepted')" class="btn btn-success">Accepted</button>
+    <button onclick="filterByStatus('Rejected')" class="btn btn-danger">Rejected</button>
+</div>
+
+<div class="container">
+    <table id="leaveTable" class="table table-bordered table-hover">
+        <thead class="table-light">
+        <tr>
+            <th>Username</th>
+            <th>From</th>
+            <th>To</th>
+            <th>Reason</th>
+            <th>Status</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="leave : ${leaveRequests}" th:attr="data-status=${leave.status}">
+            <td th:text="${leave.requesterUsername}">username</td>
+            <td th:text="${leave.fromDate}">from</td>
+            <td th:text="${leave.toDate}">to</td>
+            <td th:text="${leave.reason}">reason</td>
+            <td th:text="${leave.status}">status</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<a th:href="@{/admin/dashboard}" class="btn btn-secondary">Back to Dashboard</a>
+
+</body>
+</html>
