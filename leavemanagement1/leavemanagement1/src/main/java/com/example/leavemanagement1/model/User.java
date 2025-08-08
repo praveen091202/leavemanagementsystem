@@ -13,9 +13,8 @@ public class User {
     private String username;
     private String password;
 
-    private String role; // "STUDENT" or "STAFF"
+    private String role;
 
-    // Getters and Setters
     public Long getId() {
         return id;
     }
@@ -48,3 +47,4 @@ public class User {
         this.role = role;
     }
 }
+
