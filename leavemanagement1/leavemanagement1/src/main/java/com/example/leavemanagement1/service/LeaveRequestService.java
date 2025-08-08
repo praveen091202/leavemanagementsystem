@@ -37,7 +37,7 @@ public class LeaveRequestService {
         LeaveRequest leaveRequest = getLeaveRequestById(id);
         if (leaveRequest != null) {
             leaveRequest.setStatus("Accepted");
-            leaveRequest.setApproverUsername(approver); // optional: store who approved
+            leaveRequest.setApproverUsername(approver); 
             leaveRequestRepository.save(leaveRequest);
         }
     }
@@ -46,7 +46,7 @@ public class LeaveRequestService {
         LeaveRequest leaveRequest = getLeaveRequestById(id);
         if (leaveRequest != null) {
             leaveRequest.setStatus("Rejected");
-            leaveRequest.setApproverUsername(approver); // optional
+            leaveRequest.setApproverUsername(approver); 
             leaveRequestRepository.save(leaveRequest);
         }
     }
@@ -55,3 +55,4 @@ public class LeaveRequestService {
         return leaveRequestRepository.findAll();
     }
 }
+
