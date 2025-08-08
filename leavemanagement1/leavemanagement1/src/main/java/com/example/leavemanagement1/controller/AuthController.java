@@ -14,27 +14,23 @@ public class AuthController {
     @Autowired
     private UserService userService;
 
-    // Show login page
     @GetMapping("/")
     public String home(Model model) {
         model.addAttribute("user", new User());
         return "login";
     }
 
-    // Optional: Handle GET /login directly too
     @GetMapping("/login")
     public String login(Model model) {
         model.addAttribute("user", new User());
         return "login";
     }
 
-    // Show registration page
     @GetMapping("/register")
     public String showRegisterForm() {
         return "register";
     }
 
-    // Handle registration
     @PostMapping("/register")
     public String processRegister(@RequestParam String username,
                                   @RequestParam String password,
@@ -47,7 +43,6 @@ public class AuthController {
         return "redirect:/login";
     }
 
-    // Handle login
     @PostMapping("/login")
     public String processLogin(@RequestParam String username,
                                @RequestParam String password,
@@ -72,10 +67,10 @@ public class AuthController {
         }
     }
 
-    // Handle logout
     @GetMapping("/logout")
     public String logout(HttpSession session) {
         session.invalidate();
         return "redirect:/login?logout=true";
     }
 }
+
