@@ -11,17 +11,16 @@ public class LeaveRequest {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String requesterUsername; // who is requesting leave (STUDENT or STAFF)
-    private String role;              // "STUDENT" or "STAFF"
+    private String requesterUsername; 
+    private String role;             
     private String reason;
 
     private LocalDate fromDate;
     private LocalDate toDate;
 
-    private String status;            // "PENDING", "ACCEPTED", "REJECTED"
-    private String approverUsername;  // staff (for student leave) or admin (for staff leave)
+    private String status;           
+    private String approverUsername;  
 
-    // Getters and Setters
     public Long getId() {
         return id;
     }
@@ -86,3 +85,4 @@ public class LeaveRequest {
         this.approverUsername = approverUsername;
     }
 }
+
